@@ -1,0 +1,27 @@
+{% extends 'base.html' %}{% block base %}
+<section class="w-full text-center py-16">
+    <h2 class="text-3xl font-bold">{{subcategory}}</h2>
+</section>
+
+<section class="px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2">
+    {% if products|length == 0 %}
+    <div class="text-center md:col-span-2">
+        <h3 class="text-2xl font-bold">No product Found</h3>
+    </div>
+    {% endif %}
+    <!--  -->
+    {% for product in products %}
+    <div
+        class="bg-white px-10 py-10 sm:py-16 lg:py-24 flex flex-col justify-center items-center"
+    >
+        <h3 class="text-3xl font-bold">{{product}}</h3>
+        <a
+            href="{% url 'product_detail' product.slug %}"
+            class="block mt-4 bg-black hover:bg-gray-800 text-white font-bold px-4 py-2 rounded"
+            >View More</a
+        >
+        <img class="w-96 mt-6" src="/uploads/{{product.image}}" alt="" />
+    </div>
+    {% endfor %}
+</section>
+{% endblock %}

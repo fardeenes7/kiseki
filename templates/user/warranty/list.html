@@ -1,0 +1,83 @@
+{% extends 'base.html' %} {% block base %}
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="">
+    <div class="py-16">
+        <div class="max-w-7xl mx-auto sm:px-2 lg:px-8">
+            <div class="max-w-2xl mx-auto px-4 lg:max-w-5xl lg:px-0">
+                <h1
+                    class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl"
+                >
+                    Warranty history
+                </h1>
+                <p class="mt-2 text-sm text-gray-500">
+                    Check the status of your warranties.
+                </p>
+            </div>
+        </div>
+
+        <div class="mt-16">
+            <h2 class="sr-only">Recent orders</h2>
+            <div class="max-w-7xl mx-auto sm:px-2 lg:px-8">
+                <div
+                    class="max-w-2xl mx-auto space-y-8 sm:px-4 lg:max-w-5xl lg:px-0"
+                >
+                    {% for warranty in warranties %}
+                    <div
+                        class="bg-white border-t border-b border-gray-200 shadow-sm sm:rounded-lg sm:border"
+                    >
+                        <div
+                            class="flex items-center p-4 border-b border-gray-200 sm:p-6 sm:grid sm:grid-cols-4 sm:gap-x-6"
+                        >
+                            <dl
+                                class="flex-1 grid grid-cols-2 gap-x-6 text-sm sm:col-span-3 sm:grid-cols-3 lg:col-span-2"
+                            >
+                                <div>
+                                    <dt class="font-medium text-gray-900">
+                                        Warranty ID
+                                    </dt>
+                                    <dd class="mt-1 text-gray-500">
+                                        #{{warranty.id}}
+                                    </dd>
+                                </div>
+                                <div class="hidden sm:block">
+                                    <dt class="font-medium text-gray-900">
+                                        Date placed
+                                    </dt>
+                                    <dd class="mt-1 text-gray-500">
+                                        <time datetime="2021-07-06">
+                                            <!--prettier-ignore-->
+                                            {{warranty.created_at|date:'M d, Y'}}</time
+                                        >
+                                    </dd>
+                                </div>
+                                <div>
+                                    <dt class="font-medium text-gray-900">
+                                        Status
+                                    </dt>
+                                    <dd class="mt-1 font-medium text-gray-900">
+                                        {{warranty.status}}
+                                    </dd>
+                                </div>
+                            </dl>
+
+                            <div
+                                class="hidden lg:col-span-2 lg:flex lg:items-center lg:justify-end lg:space-x-4"
+                            >
+                                <a
+                                    href="{% url 'warranty_detail' warranty.id %}"
+                                    class="flex items-center justify-center bg-white py-2 px-2.5 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                >
+                                    <span>View Details</span>
+                                    <span class="sr-only">{{order.id}}</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

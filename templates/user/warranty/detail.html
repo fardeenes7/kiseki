@@ -1,0 +1,142 @@
+{% extends 'base.html' %} {% block base %}
+<div class="">
+    <div class="py-16">
+        <div class="max-w-7xl mx-auto sm:px-2 lg:px-8">
+            <div class="max-w-2xl mx-auto px-4 lg:max-w-4xl lg:px-0">
+                <h1
+                    class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl"
+                >
+                    Warranty #{{ warranty.id }}
+                </h1>
+                <p class="mt-2 text-sm text-gray-500">
+                    {{ warranty.created_at|date:'M d, Y' }}
+                </p>
+            </div>
+        </div>
+
+        <!-- Products -->
+        <div class="mt-6 max-w-2xl mx-auto px-4 lg:max-w-4xl lg:px-0">
+            <h2 class="sr-only">Products purchased</h2>
+
+            <div class="space-y-8">
+                <div
+                    class="bg-white border-t border-b border-gray-200 shadow-sm sm:border sm:rounded-lg"
+                >
+                    <div
+                        class="py-6 px-4 sm:px-6 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:p-8"
+                    >
+                        <div class="sm:flex lg:col-span-7">
+                            <div
+                                class="flex-shrink-0 w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:aspect-none sm:w-40 sm:h-40"
+                            >
+                                <img
+                                    src="/uploads/{{product.image}}"
+                                    alt="Insulated bottle with white base and black snap lid."
+                                    class="w-full h-full object-center object-cover sm:w-full sm:h-full"
+                                />
+                            </div>
+
+                            <div class="mt-6 sm:mt-0 sm:ml-6">
+                                <h3 class="text-base font-bold text-gray-900">
+                                    <a
+                                        href="{%  url 'product_detail' product.slug %}"
+                                        >{{product.name}}</a
+                                    >
+                                </h3>
+                                <p class="mt-2 text-sm font-bold text-gray-900">
+                                    Taka {{product.price}}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 lg:mt-0 lg:col-span-5">
+                            <dl class="grid grid-cols-2 gap-x-6 text-sm">
+                                <div>
+                                    <dt class="font-bold text-gray-900">
+                                        Details
+                                    </dt>
+                                    <dd class="mt-3 text-gray-500">
+                                        <span class="block"
+                                            >S/N: {{warranty.sn.sn}}</span
+                                        >
+                                    </dd>
+                                </div>
+                                <div>
+                                    <dt class="font-bold text-gray-900">
+                                        Warranty
+                                    </dt>
+                                    <dd class="mt-3 text-gray-500 space-y-3">
+                                        <p>{{product.warranty}} Years</p>
+                                    </dd>
+                                    <dd class="mt-3 text-gray-500 space-y-3">
+                                        <p>Till {{order_item.warranty}}</p>
+                                    </dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- More products... -->
+            </div>
+        </div>
+
+        <div class="mt-16 w-full max-w-4xl mx-auto">
+            <!-- This example requires Tailwind CSS v2.0+ -->
+            <div class="flow-root">
+                <ul role="list" class="-mb-8">
+                    {% for log in logs %}
+                    <li class="group">
+                        <div class="relative pb-8">
+                            <span
+                                class="absolute top-4 left-4 -ml-px h-full group-last:h-0 w-0.5 bg-gray-200"
+                                aria-hidden="true"
+                            ></span>
+                            <div class="relative flex space-x-3">
+                                <div>
+                                    <span
+                                        class="h-8 w-8 rounded-full bg-green-500 flex items-center justify-center ring-8 ring-white"
+                                    >
+                                        <!-- Heroicon name: solid/check -->
+                                        <svg
+                                            class="h-5 w-5 text-white"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20"
+                                            fill="currentColor"
+                                            aria-hidden="true"
+                                        >
+                                            <path
+                                                fill-rule="evenodd"
+                                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                clip-rule="evenodd"
+                                            />
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div
+                                    class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4"
+                                >
+                                    <div>
+                                        <p class="text-sm text-gray-500">
+                                            {{ log.message }}
+                                        </p>
+                                    </div>
+                                    <div
+                                        class="text-right text-sm whitespace-nowrap text-gray-500"
+                                    >
+                                        <time datetime="2020-09-28"
+                                            >{{log.created_at}}</time
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

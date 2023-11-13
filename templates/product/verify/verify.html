@@ -1,0 +1,141 @@
+{% extends 'base.html' %} {% block base %}<!--
+  This example requires Tailwind CSS v2.0+ 
+  
+  This example requires some changes to your config:
+  
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      require('@tailwindcss/aspect-ratio'),
+    ],
+  }
+  ```
+-->
+<div class="bg-gray-50">
+    <div class="max-w-2xl mx-auto pt-16 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+        <div
+            class="px-4 space-y-2 sm:px-0 sm:flex sm:items-baseline sm:justify-between sm:space-y-0"
+        >
+            <div class="flex sm:items-baseline sm:space-x-4">
+                <h1
+                    class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl"
+                >
+                    Verify Product Authenticity
+                </h1>
+            </div>
+        </div>
+        <div class="mt-6">{% include 'product/verify/form.html' %}</div>
+
+        <!-- Products -->
+        {% if product %}
+        <div class="mt-6">
+            <div class="space-y-8">
+                <div
+                    class="bg-white border-t border-b border-gray-200 shadow-sm sm:border sm:rounded-lg"
+                >
+                    <div class="p-8 flex items-center text-sm gap-4">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            class="w-6 h-6 text-green-500"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.49 4.49 0 01-3.498-1.306 4.491 4.491 0 01-1.307-3.498A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                                clip-rule="evenodd"
+                            />
+                        </svg>
+                        <div>Product is Authentic</div>
+                    </div>
+                    <div
+                        class="py-6 px-4 sm:px-6 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:p-8"
+                    >
+                        <div class="sm:flex lg:col-span-7">
+                            <div
+                                class="flex-shrink-0 w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:aspect-none sm:w-40 sm:h-40"
+                            >
+                                <img
+                                    src="/uploads/{{product.image}}"
+                                    alt="Insulated bottle with white base and black snap lid."
+                                    class="w-full h-full object-center object-cover sm:w-full sm:h-full"
+                                />
+                            </div>
+
+                            <div class="mt-6 sm:mt-0 sm:ml-6">
+                                <h3 class="text-base font-bold text-gray-900">
+                                    <a
+                                        href="{%  url 'product_detail' product.slug %}"
+                                        >{{product.name}}</a
+                                    >
+                                </h3>
+                                <p class="mt-2 text-sm font-bold text-gray-900">
+                                    Taka {{product.price}}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 lg:mt-0 lg:col-span-5">
+                            <dl class="grid grid-cols-2 gap-x-6 text-sm">
+                                <div>
+                                    <dt class="font-bold text-gray-900">
+                                        Details
+                                    </dt>
+                                    <dd class="mt-3 text-gray-500">
+                                        <span class="block"
+                                            >S/N: {{request.GET.sn}}</span
+                                        >
+                                    </dd>
+                                </div>
+                                <div>
+                                    <dt class="font-bold text-gray-900">
+                                        Warranty
+                                    </dt>
+                                    <dd class="mt-3 text-gray-500 space-y-3">
+                                        <p>{{product.warranty}} Years</p>
+                                    </dd>
+                                    <dd class="mt-3 text-gray-500 space-y-3">
+                                        <p>Till {{stock.warranty}}</p>
+                                    </dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- More products... -->
+            </div>
+        </div>
+        {% else %}
+        <div class="mt-6">
+            <div class="space-y-8">
+                <div
+                    class="bg-white border-t border-b border-gray-200 shadow-sm sm:border sm:rounded-lg"
+                >
+                    <div class="p-8 flex items-center text-sm gap-4">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            class="w-6 h-6 text-red-500"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+                                clip-rule="evenodd"
+                            />
+                        </svg>
+
+                        <div>Product With SN {{request.GET.sn}} Not Found</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

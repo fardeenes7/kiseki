@@ -1,0 +1,58 @@
+<!-- This example requires Tailwind CSS v2.0+ -->
+<footer class="bg-white">
+    <div class="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
+        <nav
+            class="-mx-5 -my-2 flex flex-wrap justify-center"
+            aria-label="Footer"
+        >
+            <div class="px-5 py-2">
+                <a
+                    href="{% url 'verify' %}"
+                    class="text-sm text-gray-500 hover:text-gray-900"
+                >
+                    Verify Authenticity
+                </a>
+            </div>
+
+            <div class="px-5 py-2">
+                <a
+                    href="{% url 'login' %}"
+                    class="text-sm text-gray-500 hover:text-gray-900"
+                >
+                    Login
+                </a>
+            </div>
+
+            <div class="px-5 py-2">
+                <a
+                    href="{% url 'register' %}"
+                    class="text-sm text-gray-500 hover:text-gray-900"
+                >
+                    Create Account
+                </a>
+            </div>
+
+            <div class="px-5 py-2">
+                <a href="#" class="text-sm text-gray-500 hover:text-gray-900">
+                    About
+                </a>
+            </div>
+
+            <div class="px-5 py-2">
+                <a href="#" class="text-sm text-gray-500 hover:text-gray-900">
+                    Terms
+                </a>
+            </div>
+
+            <div class="px-5 py-2">
+                <a href="#" class="text-sm text-gray-500 hover:text-gray-900">
+                    Privacy Policy
+                </a>
+            </div>
+        </nav>
+
+        <p class="mt-8 text-center text-sm text-gray-400">
+            &copy; 2023 kiseki, Inc. All rights reserved.
+        </p>
+    </div>
+</footer>

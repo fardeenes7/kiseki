@@ -1,0 +1,250 @@
+{% extends 'base.html' %} {% block base %}
+<div class="bg-white">
+    <div
+        class="max-w-7xl mx-auto px-4 pt-4 pb-16 sm:px-6 sm:pt-8 sm:pb-24 lg:px-8 xl:px-2 xl:pt-14"
+    >
+        <h1
+            class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl"
+        >
+            Checkout
+        </h1>
+
+        <div
+            class="mt-12 max-w-lg mx-auto grid grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2"
+        >
+            <div class="max-w-lg mx-auto w-full">
+                <h2 class="sr-only">Order summary</h2>
+
+                <div class="flow-root">
+                    <ul role="list" class="-my-6 divide-y divide-gray-200">
+                        {% for item in user.carts.all %}
+                        <li class="py-6 flex space-x-6">
+                            <img
+                                src="/uploads/{{ item.product.image }}"
+                                alt="{{item.product}}"
+                                class="flex-none w-24 h-24 object-center object-cover bg-gray-100 rounded-md"
+                            />
+                            <div class="flex-auto">
+                                <div
+                                    class="space-y-1 sm:flex sm:items-start sm:justify-between sm:space-x-6"
+                                >
+                                    <div
+                                        class="flex-auto text-sm font-medium space-y-1"
+                                    >
+                                        <h3 class="text-gray-900">
+                                            <a href="#">{{item.product}}</a>
+                                        </h3>
+                                        <p class="text-gray-900">
+                                            <!--prettier-ignore-->
+                                            {{item.product.price}} * {{item.quantity}}
+                                        </p>
+                                        <p
+                                            class="hidden text-gray-500 sm:block"
+                                        >
+                                            Total: {{item.get_total}}
+                                        </p>
+                                    </div>
+                                    <div class="flex-none flex space-x-4">
+                                        <a
+                                            href="{% url 'cart' %}"
+                                            class="text-sm font-medium text-gray-600 hover:text-gray-500"
+                                        >
+                                            Edit
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <dl class="text-sm font-medium text-gray-500 mt-10 space-y-6">
+                    <div class="flex justify-between">
+                        <dt>Subtotal</dt>
+                        <dd class="text-gray-900">{{user.get_cart_total}}</dd>
+                    </div>
+                    <div class="flex justify-between">
+                        <dt>Taxes</dt>
+                        <dd class="text-gray-900">0.00</dd>
+                    </div>
+                    <div class="flex justify-between">
+                        <dt>Shipping</dt>
+                        <dd class="text-gray-900">0.00</dd>
+                    </div>
+                    <div
+                        class="flex justify-between border-t border-gray-200 text-gray-900 pt-6"
+                    >
+                        <dt class="text-base">Total</dt>
+                        <dd class="text-base">{{user.get_cart_total}}</dd>
+                    </div>
+                </dl>
+            </div>
+
+            <div class="max-w-lg mx-auto w-full">
+                <form
+                    method="POST"
+                    class="grid grid-cols-1 md:grid-cols-6 md:gap-x-4"
+                >
+                    {% csrf_token %}
+                    <h2 class="text-lg font-medium text-gray-900 md:col-span-2">
+                        Contact information
+                    </h2>
+
+                    <div class="mt-6 md:col-span-6">
+                        <label
+                            for="email-address"
+                            class="block text-sm font-medium text-gray-700"
+                            >Your Name</label
+                        >
+                        <div class="mt-1">
+                            <input
+                                type="text"
+                                id="name"
+                                value="{{user.first_name}} {{user.last_name}}"
+                                name="name"
+                                autocomplete="name"
+                                class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+                            />
+                        </div>
+                    </div>
+                    <div class="mt-6 md:col-span-3">
+                        <label
+                            for="email-address"
+                            class="block text-sm font-medium text-gray-700"
+                            >Email address</label
+                        >
+                        <div class="mt-1">
+                            <input
+                                type="email"
+                                id="email"
+                                value="{{user.email}}"
+                                name="email"
+                                autocomplete="email"
+                                class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="mt-6 md:col-span-3">
+                        <label
+                            for="phone"
+                            class="block text-sm font-medium text-gray-700"
+                            >Phone number</label
+                        >
+                        <div class="mt-1">
+                            <input
+                                type="text"
+                                name="phone"
+                                id="phone"
+                                pattern="01[3-9]{1}[0-9]{8}"
+                                required
+                                title="Enter a valid bangladeshi phone number"
+                                autocomplete="tel"
+                                value="{{request.POST.phone}}"
+                                class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+                            />
+                        </div>
+                    </div>
+                    <div class="mt-6 md:col-span-6">
+                        <label
+                            for="phone"
+                            class="block text-sm font-medium text-gray-700"
+                            >Street Address</label
+                        >
+                        <div class="mt-1">
+                            <input
+                                type="text"
+                                name="address"
+                                id="address"
+                                required
+                                title="Enter a valid bangladeshi phone number"
+                                autocomplete="street-address"
+                                value="{{request.POST.address}}"
+                                class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+                            />
+                        </div>
+                    </div>
+                    <div class="mt-6 md:col-span-2">
+                        <label
+                            for="city"
+                            class="block text-sm font-medium text-gray-700"
+                            >City</label
+                        >
+                        <div class="mt-1">
+                            <input
+                                type="text"
+                                name="city"
+                                id="city"
+                                required
+                                value="{{request.POST.city}}"
+                                class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+                            />
+                        </div>
+                    </div>
+                    <div class="mt-6 md:col-span-2">
+                        <label
+                            for="state"
+                            class="block text-sm font-medium text-gray-700"
+                            >State</label
+                        >
+                        <div class="mt-1">
+                            <input
+                                type="text"
+                                name="state"
+                                id="state"
+                                required
+                                value="{{request.POST.state}}"
+                                class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+                            />
+                        </div>
+                    </div>
+                    <div class="mt-6 md:col-span-2">
+                        <label
+                            for="state"
+                            class="block text-sm font-medium text-gray-700"
+                            >Postal Code</label
+                        >
+                        <div class="mt-1">
+                            <input
+                                type="text"
+                                name="postal_code"
+                                id="postal_code"
+                                pattern="[0-9]{4}"
+                                required
+                                value="{{request.POST.postal_code}}"
+                                class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="mt-6 flex space-x-2 md:col-span-6">
+                        <div class="flex items-center h-5">
+                            <input
+                                id="terms"
+                                name="terms"
+                                type="checkbox"
+                                required
+                                title="You must accept the terms and conditions"
+                                class="h-4 w-4 border-gray-300 rounded text-gray-600 focus:ring-gray-500"
+                            />
+                        </div>
+                        <label for="terms" class="text-sm text-gray-500"
+                            >I have read the terms and conditions.</label
+                        >
+                    </div>
+
+                    <!-- Submit button, enable/disable based on form state -->
+                    <button
+                        type="submit"
+                        class="md:col-span-6 mt-4 w-full flex items-center justify-center bg-black border border-transparent text-white rounded-md py-2 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
+                    >
+                        Continue
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

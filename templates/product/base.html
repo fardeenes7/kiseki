@@ -1,0 +1,27 @@
+{% extends 'base.html' %} {% block base %}
+<section
+    class="py-12 px-4 w-full max-w-7xl mx-auto sm:px-6 lg:px-8 flex justify-between items-center"
+>
+    <div><h2 class="text-2xl font-bold">{{product}}</h2></div>
+    <div class="flex gap-4">
+        <a
+            href="{% url 'product_detail' product.slug %}"
+            class="text-gray-600 hover:text-gray-900"
+            >Overview</a
+        >
+        <a
+            href="{% url 'product_specs' product.slug %}"
+            class="text-gray-600 hover:text-gray-900"
+            >Specification</a
+        >
+        <a
+            href="{% url 'product_buy' product.slug %}"
+            class="text-gray-600 hover:text-gray-900"
+            >Buy Now</a
+        >
+    </div>
+</section>
+<!---->
+{% block product %} {% endblock %}
+<!---->
+{% endblock %}
