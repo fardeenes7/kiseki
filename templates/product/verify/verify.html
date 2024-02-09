@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="mt-6">{% include 'product/verify/form.html' %}</div>
-
+        {% if request.GET.sn %}
         <!-- Products -->
         {% if product %}
         <div class="mt-6">
@@ -135,6 +135,18 @@
             </div>
         </div>
 
+        {% endif %} {% else %}
+        <div class="mt-6">
+            <div class="space-y-8">
+                <div
+                    class="bg-white border-t border-b border-gray-200 shadow-sm sm:border sm:rounded-lg"
+                >
+                    <div class="p-8 flex items-center text-sm gap-4">
+                        <div>Enter SN to verify authenticity</div>
+                    </div>
+                </div>
+            </div>
+        </div>
         {% endif %}
     </div>
 </div>

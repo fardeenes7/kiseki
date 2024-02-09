@@ -9,6 +9,7 @@ from django.db import transaction
 class Category(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100)
+    image = models.ImageField(upload_to="category/", blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "Categories"
@@ -21,6 +22,7 @@ class Subcategory(models.Model):
     category = models.ForeignKey(Category, related_name='subcategories', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100)
+    icon = models.ImageField(upload_to="subcategory/", blank=True, null=True)
     image = models.ImageField(upload_to="subcategory/", blank=True, null=True)
 
     def __str__(self):

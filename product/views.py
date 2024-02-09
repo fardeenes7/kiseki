@@ -2,11 +2,27 @@ from django.shortcuts import render
 from .models import *
 
 def index(request):
-    categories = Category.objects.all()
     context = {
-        'categories': categories
+        'categories': Category.objects.all()[:5]
     }
     return render(request, 'index/index.html', context)
+
+def category_list(request):
+    context = {
+        'categories': Category.objects.all()
+    }
+    return render(request, 'product/category/list.html', context)
+
+def category_detail(request, slug):
+    category = Category.objects.get(slug=slug)
+    subcategories = category.subcategories.all()
+    context = {
+        'category': category,
+        'subcategories': subcategories
+    }
+    return render(request, 'product/category/detail.html', context)
+
+
 
 def subcategory_detail(request, slug):
     subcategory = Subcategory.objects.get(slug=slug)

@@ -6,6 +6,8 @@ urlpatterns = [
     path('login/', login, name='login'),
     path('register/', register, name='register'),
     path('logout/', logout, name='logout'),
+    path('profile/', profile, name='profile'),
+
     path('cart/', cart, name='cart'),
     path('card/<int:id>/remove', remove_from_cart, name='remove_from_cart'),
     path('cart/<int:id>/add', add_to_cart, name='add_to_cart'),
@@ -18,5 +20,6 @@ urlpatterns = [
     path('orders/<int:id>/cancel', order_cancel, name='order_cancel'),
     path('warranty/', warranty_list, name='warranty_list'),
     path('warranty/<int:id>/', warranty_detail, name='warranty_detail'),    
+
 
 ]

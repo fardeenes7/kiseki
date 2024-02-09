@@ -188,6 +188,17 @@ def warranty_detail(request, id):
     return render(request, 'user/warranty/detail.html', context)
 
 
+def profile(request):
+    return render(request, 'user/profile.html')
 
 
+def about(request):
+    return render(request, 'index/about.html')
 
+
+def terms(request):
+    return render(request, 'index/terms.html')
+
+
+def privacy(request):
+    return render(request, 'index/privacy.html')

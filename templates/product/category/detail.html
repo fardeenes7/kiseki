@@ -1,0 +1,13 @@
+{% extends 'base.html' %}{% block base %}
+<section class="w-full text-center py-16">
+    <h2 class="text-3xl font-bold">{{category}}</h2>
+</section>
+
+{% for subcategory in subcategories %}
+<!---->
+{% with products=subcategory.products.all %}
+
+<section class="px-4 sm:px-6 lg:px-8 mb-8">
+    {% include './subcategory.html' %}
+</section>
+{% endwith %} {% endfor %} {% endblock %}
