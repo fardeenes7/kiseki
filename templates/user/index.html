@@ -18,7 +18,9 @@
                 <div
                     class="max-w-2xl mx-auto space-y-8 sm:px-4 lg:max-w-5xl lg:px-0"
                 >
-                    {% for order in orders %}
+                    {% if orders|length == 0 %}
+                    <p class="font-bold text-lg">No Order Found</p>
+                    {% endif %} {% for order in orders %}
                     <div
                         class="bg-white border-t border-b border-gray-200 shadow-sm sm:rounded-lg sm:border"
                     >
@@ -182,7 +184,9 @@
                 <div
                     class="max-w-2xl mx-auto space-y-8 sm:px-4 lg:max-w-5xl lg:px-0"
                 >
-                    {% for warranty in warranties %}
+                    {% if warranties|length == 0 %}
+                    <p class="font-bold text-lg">No warranty Found</p>
+                    {% endif %} {% for warranty in warranties %}
                     <div
                         class="bg-white border-t border-b border-gray-200 shadow-sm sm:rounded-lg sm:border"
                     >

@@ -1,46 +1,62 @@
 {% extends 'base.html' %}{% block base %}
-<!-- This example requires Tailwind CSS v2.0+ -->
-<div class="bg-white z-0">
-    <div class="py-16 sm:py-24 xl:max-w-7xl xl:mx-auto xl:px-8">
-        <div
-            class="px-4 sm:px-6 sm:flex sm:items-center sm:justify-between lg:px-8 xl:px-0"
-        >
-            <h2 class="text-2xl font-extrabold tracking-tight text-gray-900">
-                Shop by Category
-            </h2>
-            <a
-                href="#"
-                class="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block"
-                >Browse all categories<span aria-hidden="true"> &rarr;</span></a
+<div class="w-full max-w-7xl px-8 xl:px-0 xl:mx-auto">
+    <div class="mt-8 bg-white w-full h-64 lg:h-96 overflow-hidden rounded-xl">
+        <a href="{{banner.link}}" class="w-full h-full">
+            <img
+                src="/uploads/{{banner.image}}"
+                alt="{{banner}}"
+                class="h-full w-full object-cover object-center"
+            />
+        </a>
+    </div>
+    <!--Shop By Category-->
+    <div class="bg-white mt-8 shadow border rounded-lg">
+        <div class="py-8 sm:py-12 xl:max-w-7xl xl:mx-auto xl:px-8">
+            <div
+                class="px-4 sm:px-6 sm:flex sm:items-center sm:justify-between lg:px-8 xl:px-0"
             >
-        </div>
-
-        <div class="mt-4">
-            <div class="-my-2">
-                <div
-                    class="box-content py-2 relative h-80 overflow-x-auto xl:overflow-visible"
+                <h2
+                    class="text-2xl font-extrabold tracking-tight text-gray-900"
                 >
+                    Shop by Category
+                </h2>
+                <a
+                    href="{% url 'category_list' %}"
+                    class="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block"
+                    >Browse all categories<span aria-hidden="true">
+                        &rarr;</span
+                    ></a
+                >
+            </div>
+
+            <div class="mt-4">
+                <div class="-my-2">
                     <div
-                        class="absolute min-w-screen-xl px-4 flex space-x-8 sm:px-6 lg:px-8 xl:relative xl:px-0 xl:space-x-0 xl:grid xl:grid-cols-5 xl:gap-x-8"
+                        class="box-content py-2 relative h-80 overflow-x-auto xl:overflow-visible"
                     >
-                        {% for category in categories %}
-                        <!---->
-                        {% include 'product/category/card.html' %}
-                        <!---->
-                        {% endfor %}
+                        <div
+                            class="absolute min-w-screen-xl px-4 flex space-x-8 sm:px-6 lg:px-8 xl:relative xl:px-0 xl:space-x-0 xl:grid xl:grid-cols-5 xl:gap-x-8"
+                        >
+                            {% for category in categories %}
+                            <!---->
+                            {% include 'product/category/card.html' %}
+                            <!---->
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="mt-6 px-4 sm:hidden">
-            <a
-                href="#"
-                class="block text-sm font-semibold text-indigo-600 hover:text-indigo-500"
-                >Browse all categories<span aria-hidden="true"> &rarr;</span></a
-            >
+            <div class="mt-6 px-4 sm:hidden">
+                <a
+                    href="#"
+                    class="block text-sm font-semibold text-indigo-600 hover:text-indigo-500"
+                    >Browse all categories<span aria-hidden="true">
+                        &rarr;</span
+                    ></a
+                >
+            </div>
         </div>
     </div>
 </div>
-
 {% endblock %}

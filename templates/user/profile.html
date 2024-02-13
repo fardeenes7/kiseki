@@ -1,5 +1,4 @@
 {% extends 'base.html' %} {% block base %}
-<!-- This example requires Tailwind CSS v2.0+ -->
 <div class="">
     <div class="py-16">
         <div class="max-w-7xl mx-auto sm:px-2 lg:px-8">
@@ -13,12 +12,13 @@
         </div>
 
         <div class="mt-8">
-            <h2 class="sr-only">Recent orders</h2>
             <div class="max-w-7xl mx-auto sm:px-2 lg:px-8">
                 <div
                     class="max-w-2xl mx-auto space-y-8 sm:px-4 lg:max-w-5xl lg:px-0"
                 >
-                    {% for order in orders %}
+                    {% if orders|length == 0 %}
+                    <p class="">No Order Found</p>
+                    {% endif %} {% for order in orders %}
                     <div
                         class="bg-white border-t border-b border-gray-200 shadow-sm sm:rounded-lg sm:border"
                     >

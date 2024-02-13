@@ -3,7 +3,8 @@ from .models import *
 
 def index(request):
     context = {
-        'categories': Category.objects.all()[:5]
+        'categories': Category.objects.all()[:5],
+        'banner': Banner.objects.last()
     }
     return render(request, 'index/index.html', context)
 

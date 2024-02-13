@@ -1,0 +1,42 @@
+{% extends 'base.html' %}{% block base %}
+<div class="w-full max-w-7xl px-8 xl:px-0 xl:mx-auto">
+    <section class="w-full text-center py-16">
+        <h2 class="text-lg md:text-2xl lg:text-4xl font-bold">
+            View All Categories
+        </h2>
+    </section>
+
+    <!--Shop By Category-->
+    <div class="">
+        <div class="xl:max-w-7xl xl:mx-auto xl:px-8">
+            <div class="mt-4">
+                <div class="-my-2">
+                    <div
+                        class="box-content py-2 relative h-80 overflow-x-auto xl:overflow-visible"
+                    >
+                        <div
+                            class="absolute min-w-screen-xl px-4 flex space-x-8 sm:px-6 lg:px-8 xl:relative xl:px-0 xl:space-x-0 xl:grid xl:grid-cols-5 xl:gap-x-8"
+                        >
+                            {% for category in categories %}
+                            <!---->
+                            {% include 'product/category/card.html' %}
+                            <!---->
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 px-4 sm:hidden">
+                <a
+                    href="#"
+                    class="block text-sm font-semibold text-indigo-600 hover:text-indigo-500"
+                    >Browse all categories<span aria-hidden="true">
+                        &rarr;</span
+                    ></a
+                >
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

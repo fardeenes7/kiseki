@@ -1,9 +1,18 @@
 {% extends 'base.html' %}{% block base %}
 <section class="w-full text-center py-16">
     <h2 class="text-3xl font-bold">{{category}}</h2>
+    <a
+        href="{% url 'category_list' %}"
+        class="mt-4 text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block"
+        >Browse all categories<span aria-hidden="true"> &rarr;</span></a
+    >
 </section>
 
-{% for subcategory in subcategories %}
+{% if subcategories|length == 0 %}
+<section class="w-full text-center py-4">
+    <h2 class="text-lg font-bold">No products found</h2>
+</section>
+{% endif %} {% for subcategory in subcategories %}
 <!---->
 {% with products=subcategory.products.all %}
 

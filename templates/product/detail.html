@@ -1,5 +1,7 @@
 {% extends 'product/base.html' %} {% block product %}
 <!---->
-{{product.description|safe}}
+<section class="w-full max-w-7xl mx-auto px-4 lg:px-0">
+    {{product.description|safe}}
+</section>
 <!---->
 {% endblock %}

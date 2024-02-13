@@ -129,3 +129,15 @@ admin.site.register(Subcategory, SubcategoryAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Warranty, WarrantyAdmin)
 admin.site.register(Stock, StockAdmin)
+
+
+"""
+Banner
+"""
+
+class BannerAdmin(admin.ModelAdmin):
+    list_display = ('name', 'image', 'link', 'created_at')
+    fields = ('name', 'image', 'link', 'created_at')
+    readonly_fields = ('created_at',)
+
+admin.site.register(Banner, BannerAdmin)

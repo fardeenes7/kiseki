@@ -16,12 +16,13 @@
         </div>
 
         <div class="mt-16">
-            <h2 class="sr-only">Recent orders</h2>
             <div class="max-w-7xl mx-auto sm:px-2 lg:px-8">
                 <div
                     class="max-w-2xl mx-auto space-y-8 sm:px-4 lg:max-w-5xl lg:px-0"
                 >
-                    {% for warranty in warranties %}
+                    {% if warranties|length == 0 %}
+                    <p class="font-bold text-lg">No warranty Found</p>
+                    {% endif %} {% for warranty in warranties %}
                     <div
                         class="bg-white border-t border-b border-gray-200 shadow-sm sm:rounded-lg sm:border"
                     >
