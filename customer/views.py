@@ -9,14 +9,14 @@ from django.contrib import messages
 def index(request):
     context = {
         'orders': request.user.orders.all().order_by('-id')[:5],
-        'warranties': Warranty.objects.filter(sn__in=Stock.objects.filter(product__in=Product.objects.filter(order_items__order__user=request.user))).order_by('-id')[:5]
+        'warranties': Warranty.objects.filter(sn__in=Stock.objects.filter(order_item__order__user=request.user)).order_by('-id')[:5]
     }
     return render(request, 'user/index.html', context)
 
 
 def login(request):
     if request.user.is_authenticated:
-        return redirect('user_index')
+        return redirect('index')
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -24,7 +24,7 @@ def login(request):
         print(user)
         if user is not None:
             auth_login(request, user)
-            return redirect('user_index') 
+            return redirect('index') 
         else:
             messages.error(request, 'Invalid username or password')
     return render(request, 'auth/login.html')
