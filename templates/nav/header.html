@@ -409,6 +409,12 @@
                 >
                     <div></div>
                     <div class="flex items-center space-x-6">
+                        <a
+                            href="{% url 'verify' %}"
+                            class="hidden text-sm font-medium text-white hover:text-gray-100 lg:block"
+                        >
+                            Verify Product
+                        </a>
                         {% if user.is_authenticated %}
                         <div class="flex gap-3">
                             <a
@@ -637,6 +643,7 @@
                                 <div class="flex items-center lg:ml-8">
                                     <!-- Cart -->
                                     <div class="ml-4 flow-root lg:ml-8">
+                                        {% if user.is_authenticated %}
                                         <a
                                             href="{% url 'cart' %}"
                                             class="group -m-2 p-2 flex items-center"
@@ -665,6 +672,13 @@
                                                 >items in cart, view bag</span
                                             >
                                         </a>
+                                        {% else %}
+                                        <a
+                                            href="{% url 'login' %}"
+                                            class="text-sm font-medium hover:text-gray-700"
+                                            >Sign in</a
+                                        >
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

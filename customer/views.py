@@ -137,7 +137,7 @@ def checkout(request):
 
 def order_list(request):
     context = {
-        'orders': request.user.orders.all()
+        'orders': request.user.orders.all().order_by('-id')
     }
     return render(request, 'user/order/list.html', context)
 
@@ -171,7 +171,7 @@ def order_cancel(request, id):
 
 def warranty_list(request):
     context = {
-        'warranties': Warranty.objects.filter(sn__in=Stock.objects.filter(product__in=Product.objects.filter(order_items__order__user=request.user)))
+        'warranties': Warranty.objects.filter(sn__in=Stock.objects.filter(order_item__order__user=request.user)).order_by('-id')
     }
     return render(request, 'user/warranty/list.html', context)
 

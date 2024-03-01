@@ -84,9 +84,13 @@ class OrderItem(models.Model):
         # else:
         #     self.warranty = None
         super().save(*args, **kwargs)
-        if self.stock:
-            self.stock.sold = True
-            self.stock.save()
+        if self.stock and self.stock.sold:
+            if self.stock.order_item != self:
+                raise Exception('Stock already sold')
+        else:
+            if self.stock:
+                self.stock.sold = True
+                self.stock.save()
         self.product.save()
 
 class OrderLog(models.Model):

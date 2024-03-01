@@ -58,7 +58,6 @@ class Product(models.Model):
         images = [self.image]
         for image in self.images.all():
             images.append(image.image)
-        print(images)
         return images
 
     def stock(self):
@@ -75,13 +74,12 @@ class Product(models.Model):
             super().save(*args, **kwargs)
 
     def generate_stock(self, current_hexadecimal, stock):
-        print("Generating stock")
         try:
             # Convert the current_hexadecimal to an integer, increment it, and convert it back to hexadecimal
             current_integer = int(current_hexadecimal, 16)
             next_hexadecimal_numbers = []
             for _ in range(stock):
-                print("Generating sn ")
+                # print("Generating sn ")
                 next_integer = current_integer + 1
                 if next_integer > 0xFFFFFFFFFFFFFFFF:  # Handle overflow
                     break
@@ -92,7 +90,7 @@ class Product(models.Model):
             print(next_hexadecimal_numbers, len(next_hexadecimal_numbers))
             with transaction.atomic():
                 for hexa in next_hexadecimal_numbers:
-                    print(f'SN: {hexa}')
+                    # print(f'SN: {hexa}')
                     Stock.objects.create(product=self, sn=hexa)
         except Exception as e:
             print(e)
@@ -105,7 +103,7 @@ class Stock(models.Model):
     verify_count = models.IntegerField(default=0)
 
     def __str__(self):
-        return f'#{self.sn}- {self.product.name}'
+        return f'{"Sold" if self.sold else ""}#{self.sn}- {self.product.name}'
     
 
 class Specification(models.Model):
