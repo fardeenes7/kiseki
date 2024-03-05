@@ -4,7 +4,7 @@ from .models import *
 def index(request):
     context = {
         'categories': Category.objects.all()[:5],
-        'banner': Banner.objects.last()
+        'banners': Banner.objects.all().order_by('-id')[:3],
     }
     return render(request, 'index/index.html', context)
 

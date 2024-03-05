@@ -34,25 +34,28 @@ def register(request):
     if request.user.is_authenticated:
         return redirect('user_index')
     if request.method == 'POST':
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        name = request.POST.get('name').split()
-        first_name = ' '.join(name[:-1])
-        last_name = name[-1]
-        password = request.POST.get('password')
-        password2 = request.POST.get('password2')
-        if password != password2:
-            messages.error(request, 'Password does not match')
-        if User.objects.filter(username=username).exists():
-            messages.error(request, 'Username already exists')
-        if User.objects.filter(email=email).exists():
-            messages.error(request, 'Email already exists')
-        user = User.objects.create_user(username=username, email=email, first_name=first_name, last_name=last_name, password=password)
-        user.set_password(password)
-        user.save()
-        auth_login(request, user)
-        messages.success(request, 'Account created successfully')
-        return redirect('user_index')
+        try:
+            username = request.POST.get('username')
+            email = request.POST.get('email')
+            name = request.POST.get('name').split()
+            first_name = ' '.join(name[:-1])
+            last_name = name[-1]
+            password = request.POST.get('password')
+            password2 = request.POST.get('password2')
+            if password != password2:
+                raise Exception('Passwords do not match')
+            if User.objects.filter(username=username).exists():
+                raise Exception('Username already exists')
+            if User.objects.filter(email=email).exists():
+                raise Exception('Email already exists')
+            user = User.objects.create_user(username=username, email=email, first_name=first_name, last_name=last_name, password=password)
+            user.set_password(password)
+            user.save()
+            auth_login(request, user)
+            messages.success(request, 'Account created successfully')
+            return redirect('user_index')
+        except Exception as e:
+            messages.error(request, str(e))
     return render(request, 'auth/register.html')
 
 def logout(request):
@@ -110,6 +113,8 @@ def update_cart(request, id):
     return redirect('cart')
 
 
+from api.divisions import get_division_name, get_district_name
+
 def checkout(request):
     context = {
         'cart': request.user.carts.all()
@@ -118,15 +123,16 @@ def checkout(request):
         try:
             name = request.POST.get('name')
             phone = request.POST.get('phone')
+            division = get_division_name(request.POST.get('division'))
+            district = get_district_name(request.POST.get('division'), request.POST.get('district'))
+            area = request.POST.get('area')
             address = request.POST.get('address')
-            city = request.POST.get('city')
-            postal_code = request.POST.get('postal_code')
-            state = request.POST.get('state')
-            order = Order.objects.create(user=request.user, name=name, phone=phone, address=address, city=city, postal_code=postal_code, state=state)
+            order = Order.objects.create(user=request.user, name=name, phone=phone, address=address, division=division, district=district, area=area)
             for cart in request.user.carts.all():
                 for _ in range(cart.quantity):
                     OrderItem.objects.create(order=order, product=cart.product)
             request.user.carts.all().delete()
+            order.save()
             messages.success(request, 'Order placed successfully')
             return redirect('order_list')
         except Exception as e:

@@ -21,12 +21,12 @@ class Category(models.Model):
 class Subcategory(models.Model):
     category = models.ForeignKey(Category, related_name='subcategories', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=100)
+    slug = models.SlugField(max_length=100, unique=True)
     icon = models.ImageField(upload_to="subcategory/", blank=True, null=True)
     image = models.ImageField(upload_to="subcategory/", blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return f'{self.category.name}: {self.name}'
     
 
 from django.core.validators import RegexValidator

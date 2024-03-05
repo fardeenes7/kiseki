@@ -1,14 +1,23 @@
 {% extends 'base.html' %}{% block base %}
 <div class="w-full max-w-7xl px-8 xl:px-0 xl:mx-auto">
-    <div class="mt-8 bg-white w-full h-64 lg:h-96 overflow-hidden rounded-xl">
-        <a href="{{banner.link}}" class="w-full h-full">
-            <img
-                src="/uploads/{{banner.image}}"
-                alt="{{banner}}"
-                class="h-full w-full object-cover object-center"
-            />
-        </a>
-    </div>
+    <section id="slider" class="splide mt-8 w-full">
+        <div class="splide__track">
+            <div class="splide__list mt-8">
+                {% for banner in banners %}
+                <div
+                    class="splide__slide relative h-64 md:h-80 w-full rounded-xl overflow-hidden bg-[url('/uploads/{{banner.image}}')]  bg-cover bg-center"
+                >
+                    {% if banner.link %}
+                    <a
+                        href="{{ banner.link }}"
+                        class="absolute h-full w-full z-20"
+                    ></a>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
     <!--Shop By Category-->
     <div class="bg-white mt-8 shadow border rounded-lg">
         <div class="py-8 sm:py-12 xl:max-w-7xl xl:mx-auto xl:px-8">
@@ -59,4 +68,14 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var splide = new Splide("#slider", {
+            type: "loop",
+            perPage: 1,
+            autoplay: true,
+        });
+        splide.mount();
+    });
+</script>
 {% endblock %}

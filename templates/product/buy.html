@@ -41,14 +41,13 @@
                             type="button"
                             onclick="changeImage('/uploads/{{image}}')"
                         >
-                            <span class="sr-only"> Angled view </span>
                             <span
                                 class="absolute inset-0 rounded-md overflow-hidden p-4"
                             >
                                 <img
                                     src="/uploads/{{image}}"
                                     alt=""
-                                    class="w-full h-full object-center object-cover"
+                                    class="w-full h-full object-contain"
                                 />
                             </span>
                             <!-- Selected: "ring-gray-500", Not Selected: "ring-transparent" -->
@@ -76,7 +75,7 @@
                             id="main-image"
                             src="/uploads/{{product.image}}"
                             alt="Image"
-                            class="w-full h-full object-center object-cover sm:rounded-lg"
+                            class="w-full h-full object-contain sm:rounded-lg"
                         />
                     </div>
 

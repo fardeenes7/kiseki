@@ -19,6 +19,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class ProductInline(admin.TabularInline):
     model = Product
+    fields = ('name', 'price',  )
     extra = 0
 
 class SubcategoryAdmin(admin.ModelAdmin):

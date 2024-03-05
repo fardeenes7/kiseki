@@ -146,6 +146,58 @@
                             />
                         </div>
                     </div>
+                    <div class="mt-6 md:col-span-2">
+                        <label
+                            for="division"
+                            class="block text-sm font-medium text-gray-700"
+                            >Division</label
+                        >
+                        <div class="mt-1">
+                            <select
+                                name="division"
+                                id="division"
+                                required
+                                class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+                            >
+                                <option value="">Select a Division</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-6 md:col-span-2">
+                        <label
+                            for="district"
+                            class="block text-sm font-medium text-gray-700"
+                            >District</label
+                        >
+                        <div class="mt-1">
+                            <select
+                                name="district"
+                                id="district"
+                                required
+                                class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+                            >
+                                <option value="">Select a District</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-6 md:col-span-2">
+                        <label
+                            for="state"
+                            class="block text-sm font-medium text-gray-700"
+                            >Area</label
+                        >
+                        <div class="mt-1">
+                            <select
+                                name="area"
+                                id="area"
+                                required
+                                class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+                            >
+                                <option value="">Select an Area</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="mt-6 md:col-span-6">
                         <label
                             for="phone"
@@ -158,66 +210,13 @@
                                 name="address"
                                 id="address"
                                 required
-                                title="Enter a valid bangladeshi phone number"
+                                title="Enter a valid address"
                                 autocomplete="street-address"
                                 value="{{request.POST.address}}"
                                 class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
                             />
                         </div>
                     </div>
-                    <div class="mt-6 md:col-span-2">
-                        <label
-                            for="city"
-                            class="block text-sm font-medium text-gray-700"
-                            >City</label
-                        >
-                        <div class="mt-1">
-                            <input
-                                type="text"
-                                name="city"
-                                id="city"
-                                required
-                                value="{{request.POST.city}}"
-                                class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
-                            />
-                        </div>
-                    </div>
-                    <div class="mt-6 md:col-span-2">
-                        <label
-                            for="state"
-                            class="block text-sm font-medium text-gray-700"
-                            >State</label
-                        >
-                        <div class="mt-1">
-                            <input
-                                type="text"
-                                name="state"
-                                id="state"
-                                required
-                                value="{{request.POST.state}}"
-                                class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
-                            />
-                        </div>
-                    </div>
-                    <div class="mt-6 md:col-span-2">
-                        <label
-                            for="state"
-                            class="block text-sm font-medium text-gray-700"
-                            >Postal Code</label
-                        >
-                        <div class="mt-1">
-                            <input
-                                type="text"
-                                name="postal_code"
-                                id="postal_code"
-                                pattern="[0-9]{4}"
-                                required
-                                value="{{request.POST.postal_code}}"
-                                class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
-                            />
-                        </div>
-                    </div>
-
                     <div class="mt-6 flex space-x-2 md:col-span-6">
                         <div class="flex items-center h-5">
                             <input
@@ -246,5 +245,77 @@
         </div>
     </div>
 </div>
+<script>
+    function get_divisions() {
+        fetch("{% url 'division_list' %}")
+            .then((response) => response.json())
+            .then((data) => {
+                let division = document.getElementById("division");
+                data.forEach((element) => {
+                    let option = document.createElement("option");
+                    option.value = element.id;
+                    option.text = element.name;
+                    division.appendChild(option);
+                });
+            });
+    }
+    function get_districts() {
+        let division = document.getElementById("division").value;
+        if (division === "") {
+            return;
+        }
+        fetch("{% url 'district_list' %}?division=" + division)
+            .then((response) => response.json())
+            .then((data) => {
+                let district = document.getElementById("district");
+                district.innerHTML = "";
+                let option = document.createElement("option");
+                option.value = "";
+                option.text = "Select a District";
+                district.appendChild(option);
+                data.forEach((element) => {
+                    let option = document.createElement("option");
+                    option.value = element.id;
+                    option.text = element.name;
+                    district.appendChild(option);
+                });
+            });
+    }
+
+    function get_areas() {
+        let division = document.getElementById("division").value;
+        let district = document.getElementById("district").value;
+        if (district === "") {
+            return;
+        }
+        fetch(
+            "{% url 'area_list' %}?division=" +
+                division +
+                "&district=" +
+                district
+        )
+            .then((response) => response.json())
+            .then((data) => {
+                let area = document.getElementById("area");
+                area.innerHTML = "";
+                let option = document.createElement("option");
+                option.value = "";
+                option.text = "Select an Area";
+                area.appendChild(option);
+                data.forEach((element) => {
+                    let option = document.createElement("option");
+                    option.value = element;
+                    option.text = element;
+                    area.appendChild(option);
+                });
+            });
+    }
+
+    document
+        .getElementById("division")
+        .addEventListener("change", get_districts);
+    document.getElementById("district").addEventListener("change", get_areas);
+    get_divisions();
+</script>
 
 {% endblock %}
