@@ -98,7 +98,7 @@ class Product(models.Model):
     
 class Stock(models.Model):
     product = models.ForeignKey(Product, related_name='stocks', on_delete=models.CASCADE)
-    sn = models.CharField(max_length=16, validators=[hexadecimal_validator])
+    sn = models.CharField(max_length=16, validators=[hexadecimal_validator], unique=True)
     sold = models.BooleanField(default=False)
     verify_count = models.IntegerField(default=0)
 
